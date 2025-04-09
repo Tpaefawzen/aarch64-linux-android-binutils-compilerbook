@@ -8,7 +8,7 @@ case $# in 0)
 esac
 
 case $1 in ''|*[!0-9]*)
-  echo Expected decimal positive integer 1>&2
+  echo Error: Expected decimal positive integer 1>&2
   exit 1
 esac
 
