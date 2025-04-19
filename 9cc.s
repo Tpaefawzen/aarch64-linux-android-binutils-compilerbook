@@ -6,8 +6,8 @@ usage__end:
 .text
 .globl _start
 _start:
-// x0 is argc x1 is &argv[0]
-ldp x0,x1,[sp]
+// argc argv+0 argv+1 ... on stack
+ldr x0,[sp]
 
 // argc
 cmp x0,2
