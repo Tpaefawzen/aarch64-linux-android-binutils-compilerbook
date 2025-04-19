@@ -6,11 +6,19 @@ usage__end:
 .text
 .globl _start
 _start:
+// x0 is argc x1 is &argv[0]
 ldp x0,x1,[sp]
 
 // argc
 cmp x0,2
-b.ge .L.usageOk
+b.lt _usage
+
+// x9 is argv+1 i.e. &argv[1]
+ldr x9,[sp,16]
+mov x0,x9
+bl szlen
+mov x8,93
+svc 0
 
 // usage error
 _usage:
@@ -19,11 +27,6 @@ ldr x1,=usageStr
 mov x2,usageLen
 mov x8,64
 svc 0
-
+mov x0,1
 mov x8,93
 svc 0
-
-.L.usageOk:
-mov x0,xzr
-mov x8,93
-svc #0
