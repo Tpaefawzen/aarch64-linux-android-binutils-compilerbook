@@ -17,6 +17,7 @@ b.lt _usage
 ldr x9,[sp,16]
 mov x0,x9
 bl szlen
+mov x10,x0 // szlen(argv[1])
 mov x8,93
 svc 0
 

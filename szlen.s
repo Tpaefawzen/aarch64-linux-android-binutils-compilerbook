@@ -1,8 +1,9 @@
+//! returns input.len
 .globl szlen
 
-// returns input.len
 // x0 input [:0]const u8
-// output x0 u64
+/// input x0 *[:0]const u8
+/// output x0 u64
 szlen:
 mov x1,-1 // len
 .L.loop:
