@@ -16,7 +16,7 @@ b.ge .L.usageOk
 _usage:
 mov x0,2
 ldr x1,=usageStr
-ldr x2,=usageLen
+mov x2,usageLen
 mov x8,64
 svc 0
 
