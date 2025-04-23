@@ -1,15 +1,15 @@
-//! Try to parse []const u8 as unsigned decimal integer as u8.
+//! Try to parse [:0]const u8 as unsigned decmial integer as u8.
 .text
-.globl parseU8
+.globl parseZU8
 
-/// input x0 [*]const u8
-/// input x1 x0.len
+/// input x0 [*:0]const u8
 /// Output x0 i64
 /// If parsed 0<=n<=255 otherwise n<0
-parseU8:
+parseZU8:
 mov x12,10 // const
 mov x11,0 // result
 
+ldr x1,[x0]
 cbnz x1,.Loop
 .L.invalChar:
 .L.overflow:
@@ -20,7 +20,6 @@ ret
 
 .Loop:
 mov x9,x0
-mov x10,x1
 ldr x0,[x9]
 bl parseDigit
 cmp x0,0
@@ -31,6 +30,6 @@ cmp x11,0xff
 b.gt .L.overflow
 
 add x0,x0,1
-sub x1,x1,1
+ldr x1,[x0]
 cbz x1,.L.ok
 b .Loop
