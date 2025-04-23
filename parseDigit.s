@@ -1,13 +1,14 @@
-//! like isDigit but x0 returns union(i8) { Ok: u4, Err: void, }
+//! Parse x0: u8 as one-digit integer.
+//! Return some negative value if error.
 
 /// input x0 u8
-/// Output x0 union{Ok:u4, Err:i8=-1, };
-/// Parse x0 as digit. if digit, parse as integer.
+/// Output x0 i64
+/// '0' <= x0 ans x0 <= '9' then x0 - 48
+/// Some negative value otherwise
 .globl parseDigit
 parseDigit:
-and x0,x0,255
-cmp x0,58
-csetm x0,pl
-subs x0,x0,48
-csetm x0,mi
+uxtb x0,w0
+sub x0,x0,48
+cmp x0,10
+cneg x0,x0,pl
 ret
