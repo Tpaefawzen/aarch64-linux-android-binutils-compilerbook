@@ -1,7 +1,7 @@
 //! returns input.len
 .globl szlen
 
-/// input x0 [*]const u8
+/// input x0 [*:0]const u8
 /// output x0 u64
 szlen:
 mov x1,-1 // len
