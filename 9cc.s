@@ -22,25 +22,30 @@ bl szToSlice
 // x0 = argv[1]: [*]const u8
 // x1 = x0.len
 //
-mov x19,x0
-mov x20,x1
+stp x0,x1,[sp,-16]!
 bl isInt
 cbz x0,errorNotInt
 
-ldr x0,=.const._start
-mov x1,6
-bl codegen.genGlobl
-ldr x0,=.const._start
-mov x1,6
-bl codegen.genLabel
-mov x0,x19
-mov x1,x20
-bl codegen.genMov
-bl codegen.genRet
+mov x0,0
+ldr x1,=.const.preamble
+ldr x2,=.const.preamble.len
+bl write
+
+mov x0,0
+ldp x1,x2,[sp],16
+bl write
+
+mov x0,0
+ldr x1,=.const.postamble
+ldr x2,=.const.postamble.len
+bl write
 
 mov x0,0
 mov x8,93
 svc 0
 
 .data
-.const._start: .ascii "_start"
+.const.preamble: .ascii ".globl _start\n_start:\nmov x0,"
+.const.preamble.len = . - .const.preamble
+.const.postamble: .ascii "\nmov x8,93\nsvc 0\n"
+.const.postamble.len = . - .const.postamble
