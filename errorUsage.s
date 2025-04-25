@@ -6,8 +6,8 @@ usageStr: .ascii "Usage: 9cc EXPR\n"
 usage__end:
 
 .text
-.globl _usage
-_usage:
+.globl errorUsage
+errorUsage:
 mov x0,2
 ldr x1,=usageStr
 mov x2,usageLen

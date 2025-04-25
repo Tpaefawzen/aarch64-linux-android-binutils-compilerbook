@@ -14,7 +14,7 @@ ldr x0,[sp]
 // x0: i32 is argc
 //
 cmp x0,2
-b.lt _usage
+b.lt errorUsage
 
 ldr x0,[sp,16]
 bl szToSlice
