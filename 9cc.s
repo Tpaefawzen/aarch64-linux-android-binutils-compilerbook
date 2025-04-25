@@ -16,36 +16,55 @@ ldr x0,[sp]
 cmp x0,2
 b.lt errorUsage
 
+bl genPreamble
+
 ldr x0,[sp,16]
 bl szToSlice
 //
 // x0 = argv[1]: [*]const u8
 // x1 = x0.len
 //
+bl sliceInt
+cbz x1,bl.errorNotInt
 stp x0,x1,[sp,-16]!
-bl isInt
-cbz x0,errorNotInt
+bl parseIntU32
+cbz x1,errorOverflow
+mov x2,x1
+ldp x0,x1,[sp],16
+bl sliceSlice
 
-mov x0,1
-ldr x1,=.const.preamble
-ldr x2,=.const.preamble.len
-bl write
+.L.parse:
+cbz x1,.L.finally
+stp x0,x1,[sp,-16]!
 
-mov x0,1
-ldp x1,x2,[sp],16
-bl write
+ldr x19,[sp]
+ldr x20,[x19]
 
-mov x0,1
-ldr x1,=.const.postamble
-ldr x2,=.const.postamble.len
-bl write
+cmp x20,0x2B // plus sign
+b.eq .L.genAdd
+cmp x20,0x2D // minus sign
+b.eq .L.genSub
+cbz x21,errorUnkChar
+
+.L.genAdd:
+add x0,x0,1
+sub x1,x1,1
+bl tryGenAdd
+//
+// x0,x1 is updated
+b .L.parse
+
+.L.genSub:
+add x0,x0,1
+sub x1,x1,1
+bl tryGenSub
+//
+// x0,x1 is updated
+b .L.parse
+
+.L.finally:
+bl genPostamble
 
 mov x0,0
 mov x8,93
 svc 0
-
-.data
-.const.preamble: .ascii ".globl _start\n_start:\nmov x0,"
-.const.preamble.len = . - .const.preamble
-.const.postamble: .ascii "\nmov x8,93\nsvc 0\n"
-.const.postamble.len = . - .const.postamble
