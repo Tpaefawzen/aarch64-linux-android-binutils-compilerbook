@@ -24,4 +24,5 @@ b .L.loop
 .L.fail:
 mov x9,0
 .L.fin:
+mov x0,x9
 ret

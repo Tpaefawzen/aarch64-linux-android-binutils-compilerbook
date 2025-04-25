@@ -16,16 +16,17 @@ ldr x0,[sp]
 cmp x0,2
 b.lt _usage
 
-ldr x19,[sp,16]
-//
-// x19: [*]const u8
-//
-mov x0,x19
+ldr x0,[sp,16]
 bl szToSlice
 //
-// x19: [*]const u8
-// x0: u64
+// x0 = argv[1]: [*]const u8
+// x1 = x0.len
 //
-mov x10,x0 // szlen(argv[1])
+stp x0,x1,[sp,-16]!
+bl isInt
+cbz x0,errorNotInt
+ldp x0,x1,[sp],16
 mov x8,93
+
+mov x0,0
 svc 0
