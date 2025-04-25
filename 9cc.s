@@ -26,16 +26,16 @@ stp x0,x1,[sp,-16]!
 bl isInt
 cbz x0,errorNotInt
 
-mov x0,0
+mov x0,1
 ldr x1,=.const.preamble
 ldr x2,=.const.preamble.len
 bl write
 
-mov x0,0
+mov x0,1
 ldp x1,x2,[sp],16
 bl write
 
-mov x0,0
+mov x0,1
 ldr x1,=.const.postamble
 ldr x2,=.const.postamble.len
 bl write
