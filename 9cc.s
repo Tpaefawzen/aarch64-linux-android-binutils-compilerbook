@@ -26,7 +26,7 @@ stp x0,x1,[sp,-16]!
 bl isInt
 cbz x0,errorNotInt
 ldp x0,x1,[sp],16
-mov x8,93
 
 mov x0,0
+mov x8,93
 svc 0
