@@ -15,6 +15,11 @@ all: $(TARGET)
 clean:
 	rm -f $(OBJ)
 
+.PHONY: test
+
+test: $(TARGET)
+	./test.sh
+
 $(TARGET): $(OBJ)
 	$(LD) -o $@ $(OBJ)
 

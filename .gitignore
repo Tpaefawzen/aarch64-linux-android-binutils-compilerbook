@@ -1,4 +1,7 @@
 *
 !Makefile
 !README.md
+!test.sh
+!LICENSE
 !*.s
+__tmp.s
