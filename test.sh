@@ -17,7 +17,14 @@ assert() {
   ;;esac
 }
 
+Finally() {
+   set -- ${1:-$?}
+   rm -f __tmp __tmp.o __tmp.s
+   exit $1
+}
+trap Finally EXIT HUP INT QUIT PIPE ALRM TERM
+
 assert 0 0
 assert 42 42
 
-exit $fail
+Finally $fail
