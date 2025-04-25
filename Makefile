@@ -20,4 +20,8 @@ $(TARGET): $(OBJ)
 .s.o:
 	$(AS) -o $@ $<
 
-$(OBJ): $(SRC)
+9cc.o: 9cc.s
+errorUsage.o: errorUsage.s
+errorNotInt.o: errorNotInt.s
+szToSlice.o: szToSlice.s
+isInt.o: isInt.s
