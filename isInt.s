@@ -10,11 +10,12 @@ isInt:
 mov x9,0 // result
 
 .L.loop:
-add x10,x10,1
 cbz x1,.L.fin
+sub x1,x1,1
 
-ldr x11,[x0,x1]
-ccmp x11,10,0,mi
+ldrb w10,[x0,x1]
+subs w10,w10,48
+ccmp w10,10,0,pl
 cset x9,mi
 cbnz x9,.L.loop
 
