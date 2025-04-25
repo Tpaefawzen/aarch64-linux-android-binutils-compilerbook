@@ -1,33 +1,31 @@
-.data
-usageLen = usage__end - usageStr
-usageStr: .ascii "Usage: 9cc EXPR\n"
-usage__end:
+//! Main of 9cc
 
 .text
 .globl _start
 _start:
-// argc argv+0 argv+1 ... on stack
+//
+// [sp] is argc: i32
+// [sp+8] is argv[0]: ?[*]const u8
+// [sp+16] is argv[1]: ?[*]const u8
+// ...
+//
 ldr x0,[sp]
-
-// argc
+//
+// x0: i32 is argc
+//
 cmp x0,2
 b.lt _usage
 
-// x9 is argv+1 i.e. &argv[1]
-ldr x9,[sp,16]
-mov x0,x9
-bl szlen
+ldr x19,[sp,16]
+//
+// x19: [*]const u8
+//
+mov x0,x19
+bl szToSlice
+//
+// x19: [*]const u8
+// x0: u64
+//
 mov x10,x0 // szlen(argv[1])
-mov x8,93
-svc 0
-
-// usage error
-_usage:
-mov x0,2
-ldr x1,=usageStr
-mov x2,usageLen
-mov x8,64
-svc 0
-mov x0,1
 mov x8,93
 svc 0
