@@ -9,10 +9,11 @@ isIntZ:
 mov x9,0 // result
 
 .L.loop:
-ldr x10,[x0]
+ldrb w10,[x0],1
 cbz x10,.L.fin
 
-ccmp x10,10,0,mi
+subs x10,x10,48
+ccmp x10,10,0,pl
 cset x9,mi
 cbnz x9,.L.loop
 
