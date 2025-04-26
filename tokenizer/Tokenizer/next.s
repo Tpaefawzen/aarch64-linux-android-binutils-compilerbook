@@ -13,10 +13,10 @@ bl tokenizer.Tokenizer.getSlice
 // x0,x1 Slice
 // x8 self
 //
-.L.readOneChar
+.L.readOneChar:
 cbz x1,.L.Eof
 
-ldrb x9,[x0],1
+ldrb w9,[x0],1
 sub x1,x1,1
 // obtw x0,x1 is consumed
 // isSpace
@@ -41,7 +41,7 @@ b.lt .L.Int
 bl tokenizer.Tokenizer.setSlice
 sub x0,x0,1
 mov x1,1
-mov x2,tokenizer.Tokenizer.Invalid
+mov x2,tokenizer.Token.Invalid
 ret
 b errorInvalidChar
 
@@ -58,7 +58,7 @@ ret
 bl tokenizer.Tokenizer.setSlice
 sub x0,x0,1
 mov x1,1
-mov x2,tokenizer.Token.Minua
+mov x2,tokenizer.Token.Minus
 ret
 
 .L.Int:
@@ -86,7 +86,7 @@ b.eq .L.Int.Underscore
 bl tokenizer.Tokenizer.setSlice
 sub x1,x0,x14
 mov x0,x14
-mov x2,tokenizer.Tokenizer.Int
+mov x2,tokenizer.Token.Int
 ret
 
 .L.Int.Underscore:
@@ -106,7 +106,7 @@ b.eq .L.Int.Underscore
 bl tokenizer.Tokenizer.setSlice
 sub x1,x0,x14
 mov x0,x14
-mov x2,tokenizer.Tokenizer.Invalid
+mov x2,tokenizer.Token.Invalid
 ret
 
 .L.Eof:
