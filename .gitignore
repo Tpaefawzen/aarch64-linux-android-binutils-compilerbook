@@ -1,7 +1,8 @@
-*
-!Makefile
-!README.md
-!test.sh
-!LICENSE
-!*.s
-__tmp.s
+/*
+!/**/Makefile
+!/**/README.md
+!/**/*.s
+!/**/test.sh
+!/**/LICENSE
+!/tokenizer
+/**/__tmp.s
