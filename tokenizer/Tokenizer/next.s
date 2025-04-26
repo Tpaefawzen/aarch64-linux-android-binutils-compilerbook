@@ -43,7 +43,6 @@ sub x0,x0,1
 mov x1,1
 mov x2,tokenizer.Token.Invalid
 ret
-b errorInvalidChar
 
 .L.Plus:
 // x0,x1 After Plus
