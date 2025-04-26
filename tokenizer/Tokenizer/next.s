@@ -113,3 +113,5 @@ ret
 // Nothing to do with current slice
 mov x2,tokenizer.Token.Eof
 ret
+
+.include "tokenizer/Token.h"
