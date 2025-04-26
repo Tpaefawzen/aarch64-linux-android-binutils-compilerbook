@@ -3,7 +3,9 @@ LD = ld
 
 OBJ = $(SRC:.s=.o)
 SRC = 9cc.s errorUsage.s errorNotInt.s szToSlice.s isInt.s \
-	write.s
+	write.s \
+	tokenizer/Token.s tokenizer/Tokenizer.s tokenizer/Tokenizer/next.s \
+
 TARGET = 9cc
 
 .PHONY: all
@@ -26,3 +28,4 @@ $(TARGET): $(OBJ)
 .s.o:
 	$(AS) -o $@ $<
 
+tokenizer/Tokenizer/next.o: tokenizer/Token.s tokenizer/Tokenizer/next.o
