@@ -8,7 +8,7 @@ cmp x0,2
 b.lt errorUsage
 
 ldr x0,[sp,16]
-bl szToSlice
+bl sz.toSlice
 ldr x8,=.L.my_tokenizer
 bl tokenizer.Tokenizer.newFromSlice
 //
