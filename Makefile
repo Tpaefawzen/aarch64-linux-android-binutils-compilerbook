@@ -2,7 +2,7 @@ AS = as
 LD = ld
 
 OBJ = $(SRC:.s=.o)
-SRC = 9cc.s errorUsage.s errorNotInt.s szToSlice.s isInt.s \
+SRC = 9cc.s errorUsage.s errorNotInt.s sz/toSlice.s isInt.s \
 	write.s \
 	tokenizer/Token.s tokenizer/Tokenizer.s tokenizer/Tokenizer/next.s \
 
