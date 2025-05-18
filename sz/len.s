@@ -1,9 +1,9 @@
 //! returns input.len
-.globl szlen
+.globl sz.len
 
 /// input x0 [*:0]const u8
 /// output x0 u64
-szlen:
+sz.len:
 mov x1,-1 // len
 .L.loop:
 add x1,x1,1
